@@ -11,13 +11,9 @@ const docTemplate = `{
         "title": "{{.Title}}",
         "termsOfService": "http://swagger.io/terms/",
         "contact": {
-            "name": "ctsch",
+            "name": "ct",
             "url": "http://www.example.com/support",
             "email": "xxxxxxx@xxx.com"
-        },
-        "license": {
-            "name": "Apache 2.0",
-            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
         },
         "version": "{{.Version}}"
     },
@@ -2202,8 +2198,8 @@ var SwaggerInfo = &swag.Spec{
 	Host:             "192.168.0.106:14010",
 	BasePath:         "/api",
 	Schemes:          []string{},
-	Title:            "自动化自媒体工具-API",
-	Description:      "MindWeaver AI",
+	Title:            "mind-weaver",
+	Description:      "思维编织者，将想法转化为代码。微信公众号：思维编织者",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 	LeftDelim:        "{{",

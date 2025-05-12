@@ -1,17 +1,13 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "MindWeaver AI",
-        "title": "自动化自媒体工具-API",
+        "description": "思维编织者，将想法转化为代码。微信公众号：思维编织者",
+        "title": "mind-weaver",
         "termsOfService": "http://swagger.io/terms/",
         "contact": {
-            "name": "ctsch",
+            "name": "ct",
             "url": "http://www.example.com/support",
             "email": "xxxxxxx@xxx.com"
-        },
-        "license": {
-            "name": "Apache 2.0",
-            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
         },
         "version": "1.0"
     },

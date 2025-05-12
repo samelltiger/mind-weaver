@@ -479,14 +479,11 @@ host: 192.168.0.106:14010
 info:
   contact:
     email: xxxxxxx@xxx.com
-    name: ctsch
+    name: ct
     url: http://www.example.com/support
-  description: MindWeaver AI
-  license:
-    name: Apache 2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  description: 思维编织者，将想法转化为代码。微信公众号：思维编织者
   termsOfService: http://swagger.io/terms/
-  title: 自动化自媒体工具-API
+  title: mind-weaver
   version: "1.0"
 paths:
   /commands/execute:
