@@ -4,7 +4,7 @@
  */
 
 // const SERVER_URL = "{{vars.API_URL}}";
-export const SERVER_URL = "http://192.168.0.106:14010";
+export const SERVER_URL = "";
 
 /**
  * Handle API response and extract data

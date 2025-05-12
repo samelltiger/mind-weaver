@@ -475,7 +475,6 @@ definitions:
       path:
         type: string
     type: object
-host: 192.168.0.106:14010
 info:
   contact:
     email: xxxxxxx@xxx.com

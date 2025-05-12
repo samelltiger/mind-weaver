@@ -7,7 +7,7 @@
 // @contact.url    http://www.example.com/support
 // @contact.email  xxxxxxx@xxx.com
 
-// @host      192.168.0.106:14010
+// @host
 // @BasePath  /api
 
 // @securityDefinitions.apikey ApiKeyAuth
