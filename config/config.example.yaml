@@ -1,0 +1,55 @@
+server:
+  port: "14010"
+  mode: "debug" # debug  release  test
+  temp_storage_path: "./data/temp"
+
+sqlite:
+  db_path: "./data/mind-weaver.db"
+
+llm:
+  base_url: "http://192.168.0.200:8020"  # 填写one-api/new-api服务的地址
+  api_key: "sk-xxxxxxx"  # 填写one-api/new-api的key
+  model: "claude-3-7-sonnet-20250219"
+  timeout: 600
+  max_tokens: 8192
+  max_context: 195000
+  temperature: 0.7
+  top_p: 0.9
+  models:
+  - name: "deepseek-chat"
+    description: "deepseek v3模型"
+    max_tokens: 8192
+    max_context: 128000
+    capabilities: ["chat", "completion"]
+    is_chat_model: true
+    temperature: 0.0
+  
+  - name: "claude-3-7-sonnet-20250219"
+    description: "claude-3-7-sonnet-20250219 模型"
+    max_tokens: 8192
+    max_context: 200000
+    capabilities: ["chat", "completion"]
+    is_chat_model: true
+    temperature: 0.7
+  
+  - name: "qt-gemini-2.5-pro-preview-05-06"
+    description: "gemini-2.5-pro-exp-03-25 模型"
+    max_tokens: 8192
+    max_context: 200000
+    capabilities: ["chat", "completion"]
+    is_chat_model: true
+    temperature: 0.7
+
+logger:
+  level: "info"
+  filename: "logs/app.log"
+  maxsize: 100
+  maxbackups: 10
+  maxage: 30
+  compress: true
+
+bin:
+  python: "/opt/anaconda3/bin/python"
+
+diff_line: 20
+diff_model: "deepseek-chat"

@@ -1,0 +1,148 @@
+/* Editor components */
+.editor-tabs {
+    display: flex;
+    background-color: var(--panel-color);
+    border-bottom: 1px solid var(--border-color);
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.editor-actions {
+    display: flex;
+    padding: 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+    background-color: #f8fafc;
+}
+
+#refresh-file-btn {
+    padding: 0.25rem 0.75rem;
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    color: var(--text-light);
+    cursor: pointer;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    transition: all 0.2s;
+}
+
+#refresh-file-btn:hover {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.tab {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-right: 1px solid var(--border-color);
+    position: relative;
+    max-width: 200px;
+    transition: all 0.2s;
+}
+
+.tab .tab-title {
+    margin-right: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.tab .close-btn {
+    width: 16px;
+    height: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    font-size: 10px;
+    margin-left: 8px;
+    opacity: 0.6;
+    transition: all 0.2s;
+}
+
+.tab .close-btn:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    opacity: 1;
+}
+
+.tab.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.tab.active .close-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.tab .close-btn::before {
+    content: "×";
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.editor-container {
+    flex: 1;
+    overflow: hidden;
+}
+
+/* Editor Preview Container Styles */
+.editor-preview-container {
+    position: absolute; /* 相对于 center-panel 定位 */
+    top: 0; /* 距离 center-panel 顶部 0 */
+    left: 0; /* 距离 center-panel 左侧 0 */
+    width: 100%; /* 宽度与 center-panel 相同 */
+    height: 100%; /* 高度与 center-panel 相同 */
+    background-color: var(--panel-color); /* 使用面板背景色 */
+    z-index: 150; /* 确保在编辑器之上，但在模态框之下 */
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border-color); /* 可选边框 */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* 可选阴影 */
+    overflow: hidden; /* 隐藏溢出 */
+}
+
+.editor-preview-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid var(--border-color);
+    background-color: #f8fafc; /* 头部背景 */
+    flex-shrink: 0; /* 防止头部被压缩 */
+}
+
+.editor-preview-header h4 {
+    margin: 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.editor-preview-actions {
+    display: flex;
+    gap: 8px; /* 按钮间距 */
+}
+
+/* 可以复用 .icon-btn 或为其定义特定样式 */
+.editor-preview-actions .icon-btn {
+    padding: 4px;
+    font-size: 1.1rem;
+    line-height: 1; /* 确保图标垂直居中 */
+}
+.editor-preview-actions .icon-btn:hover {
+     background-color: rgba(0, 0, 0, 0.08);
+     color: var(--primary-color);
+}
+
+
+#editor-preview-iframe {
+    flex-grow: 1; /* 让 iframe 填充剩余空间 */
+    border: none; /* 移除 iframe 默认边框 */
+    width: 100%;
+    height: 100%; /* 确保 iframe 充满其容器 */
+    background-color: white; /* 明确背景色 */
+}

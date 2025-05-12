@@ -1,0 +1,234 @@
+/* Button components */
+.toolbar button {
+    margin-left: 0.75rem;
+    padding: 0.35rem 0.85rem;
+    background-color: var(--secondary-color);
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.toolbar button:hover {
+    background-color: var(--primary-dark);
+}
+
+#new-project-btn {
+    padding: 0.25rem 0.75rem;
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    color: var(--text-light);
+    cursor: pointer;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    transition: all 0.2s;
+}
+
+#new-project-btn:hover {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+#send-message-btn {
+    margin-left: 0.5rem;
+    padding: 0.5rem 1rem;
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+    font-weight: 500;
+    align-self: flex-end;
+    transition: background-color 0.2s;
+}
+
+#send-message-btn:hover {
+    background-color: var(--primary-dark);
+}
+
+#send-continue-message-btn {
+    margin-left: 0.5rem;
+    padding: 0.5rem 1rem;
+    background-color: var(--secondary-color);
+    border: none;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    align-self: flex-end;
+    transition: background-color 0.2s;
+}
+
+#send-continue-message-btn:hover {
+    background-color: var(--primary-dark);
+}
+
+#toggle-context-files, #update-selection-btn, #explain-code {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    cursor: pointer;
+    color: var(--text-light);
+    transition: all 0.2s;
+}
+
+#toggle-context-files:hover, #update-selection-btn:hover, #explain-code:hover {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.file-selector-actions button {
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.file-selector-actions .cancel-btn {
+    background-color: #f1f5f9;
+    border: none;
+    color: var(--text-color);
+}
+
+.file-selector-actions .confirm-btn {
+    background-color: var(--primary-color);
+    border: none;
+    color: white;
+}
+
+.file-selector-actions .cancel-btn:hover {
+    background-color: #e2e8f0;
+}
+
+.file-selector-actions .confirm-btn:hover {
+    background-color: var(--primary-dark);
+}
+
+/* Icon buttons style */
+.icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-light);
+    padding: 2px 6px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.icon-btn:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    color: var(--primary-color);
+}
+
+.add-pattern-btn {
+    background-color: transparent;
+    border: 1px dashed var(--border-color);
+    color: var(--text-light);
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+}
+
+.add-pattern-btn:hover {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.select-pattern-btn {
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+}
+
+.select-pattern-btn:hover {
+    background-color: var(--primary-dark);
+}
+
+.remove-pattern-btn {
+    background-color: transparent;
+    border: none;
+    color: var(--text-light);
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 0 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s;
+}
+
+.remove-pattern-btn:hover {
+    color: var(--error-color);
+}
+
+/* 新建会话按钮样式 */
+#new-session-btn {
+    margin-left: 0.75rem;
+    padding: 5px 12px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#new-session-btn:hover {
+    background-color: var(--primary-dark);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
+}
+
+#new-session-btn::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.5);
+    opacity: 0;
+    border-radius: 100%;
+    transform: scale(1, 1) translate(-50%, -50%);
+    transform-origin: 50% 50%;
+}
+
+#new-session-btn:focus:not(:active)::after {
+    animation: ripple 0.6s ease-out;
+}
+
+@keyframes ripple {
+    0% {
+        transform: scale(0, 0);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(20, 20);
+        opacity: 0;
+    }
+}

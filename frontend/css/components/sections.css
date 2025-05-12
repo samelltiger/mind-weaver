@@ -1,0 +1,51 @@
+/* Section styles */
+.projects-section, .files-section, .session-section {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    position: relative;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.section-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.projects-section {
+    flex-shrink: 0;
+}
+
+.files-section {
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+h3 {
+    margin-bottom: 0.75rem;
+    font-size: 0.95rem;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+#projects-list, #file-tree, #sessions-list {
+    margin-top: 0.5rem;
+}
+
+#file-tree {
+    overflow-y: auto;
+    flex: 1;
+    max-height: calc(100vh - 200px);
+}
+
+.directory-children {
+    margin-left: 1rem;
+}

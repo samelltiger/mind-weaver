@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindWeaver of AI</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components/layout.css">
+    <link rel="stylesheet" href="css/components/sections.css">
+    <link rel="stylesheet" href="css/components/items.css">
+    <link rel="stylesheet" href="css/components/editor.css">
+    <link rel="stylesheet" href="css/components/modals.css">
+    <link rel="stylesheet" href="css/components/chat.css">
+    <link rel="stylesheet" href="css/components/buttons.css">
+    <link rel="stylesheet" href="css/components/notifications.css">
+    <link rel="stylesheet" href="css/components/forms.css">
+    <link rel="stylesheet" href="css/components/utils.css">
+    <link rel="stylesheet" href="css/components/thinking.css">
+    <script src="js/third/marked/marked.min.js"></script>
+    <script src="js/third/monaco-editor@0.33.0/min/vs/loader.js"></script>
+    <script type="module" src="js/app.js"></script>
+</head>
+
+<body>
+    <div class="app-container">
+        <header>
+            <div class="logo">MindWeaver</div>
+            <nav class="toolbar">
+                
+                <button id="settings-btn">设置</button>
+            </nav>
+        </header>
+
+        <main>
+            <aside class="left-panel">
+                <section class="projects-section">
+                    <div class="section-header">
+                        <h3>项目</h3>
+                        <div class="section-actions">
+                            <button id="new-project-btn">新建项目</button>
+                            <button id="refresh-projects-btn" class="icon-btn" title="刷新项目列表">↻</button>
+                        </div>
+                    </div>
+                    <div id="projects-list"></div>
+                </section>
+                <section class="files-section">
+                    <div class="section-header">
+                        <h3>文件</h3>
+                        <div class="section-actions">
+                            <button id="refresh-files-btn" class="icon-btn" title="刷新文件列表">↻</button>
+                        </div>
+                    </div>
+                    <div id="file-tree"></div>
+                </section>
+            </aside>
+
+            <section class="center-panel">
+                <!-- 新增: 编辑器覆盖式预览容器 -->
+                <div class="editor-preview-container" id="editor-preview-container" style="display: none;">
+                    <div class="editor-preview-header">
+                        <h4>HTML 预览</h4>
+                        <div class="editor-preview-actions">
+                            <button class="icon-btn" id="refresh-editor-preview-btn" title="刷新预览">↻</button>
+                            <button class="icon-btn" id="close-editor-preview-btn" title="关闭预览">✕</button>
+                        </div>
+                    </div>
+                    <iframe id="editor-preview-iframe" src="about:blank"
+                        sandbox="allow-scripts allow-same-origin"></iframe>
+                    <!-- 注意添加了 sandbox 属性以增强安全性，根据需要调整 -->
+                </div>
+
+                <!-- 原有内容 -->
+                <div class="editor-tabs" id="editor-tabs"></div>
+                <div class="editor-actions">
+                    <button id="refresh-file-btn" title="刷新文件">↻ 刷新</button>
+                </div>
+                <div class="editor-container" id="editor-container"></div>
+            </section>
+
+            <aside class="right-panel">
+                <section class="session-section">
+                    <div class="section-header">
+                        <h3>会话</h3>
+                        <div class="section-actions">
+                            <button id="clear-messages-btn" class="clear-messages-btn" title="清空所有消息">清空消息</button>
+                            <button id="new-session-btn">新建会话</button>
+                        </div>
+                    </div>
+                    <div id="sessions-list"></div>
+                </section>
+                <section class="ai-chat-section">
+                    <div id="messages-container"></div>
+                    <div class="context-files-section">
+                        <div class="context-files-header">
+                            <span>上下文文件</span>
+                            <div class="context-actions">
+                                <button id="explain-code">解释代码</button>
+                                <!-- <button id="toggle-context-files">选择文件</button> -->
+                                <!-- <button id="update-selection-btn" title="更新选中代码到上下文">更新选中</button> -->
+                            </div>
+                        </div>
+                        <div id="context-files-selector" class="context-files-list"></div>
+                    </div>
+                    <div class="input-container">
+                        <div class="model-selector">
+                            <select id="model-selector">
+                                <option value="gpt-3.5-turbo">GPT-3.5</option>
+                                <option value="gpt-4" selected>GPT-4</option>
+                                <option value="claude-3">Claude 3</option>
+                            </select>
+                        </div>
+                        <textarea id="user-message" placeholder="向AI提问..."></textarea>
+                        <div class="message-buttons">
+                            <button id="send-continue-message-btn">继续</button>
+                            <button id="send-message-btn">发送</button>
+                        </div>
+                    </div>
+                </section>
+            </aside>
+        </main>
+
+        <footer>
+            <div class="status-bar">
+                <span id="language-indicator">语言: 无</span>
+                <span id="ai-status">AI: 已连接</span>
+                <span id="notification-area"></span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Modals -->
+    <dialog id="new-project-modal" class="modal">
+        <div class="modal-content">
+            <h3>创建新项目</h3>
+            <form id="new-project-form">
+                <div class="form-group">
+                    <label for="project-name">项目名称</label>
+                    <input type="text" id="project-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="project-path">项目路径</label>
+                    <input type="text" id="project-path" required>
+                </div>
+                <div class="form-group">
+                    <label for="project-language">语言</label>
+                    <select id="project-language">
+                        <option value="go">Go</option>
+                        <option value="javascript">JavaScript</option>
+                        <option value="python">Python</option>
+                        <option value="java">Java</option>
+                        <option value="typescript">TypeScript</option>
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="cancel-btn">取消</button>
+                    <button type="submit">创建</button>
+                </div>
+            </form>
+        </div>
+    </dialog>
+
+    <dialog id="new-session-modal" class="modal">
+        <div class="modal-content">
+            <h3>创建新会话</h3>
+            <form id="new-session-form">
+                <div class="form-group">
+                    <label for="session-name">会话名称</label>
+                    <input type="text" id="session-name" required>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="cancel-btn">取消</button>
+                    <button type="submit">创建</button>
+                </div>
+            </form>
+        </div>
+    </dialog>
+</body>
+
+</html>

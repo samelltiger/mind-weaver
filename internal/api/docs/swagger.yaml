@@ -1,0 +1,1391 @@
+basePath: /api
+definitions:
+  api.CommandResponse:
+    properties:
+      errorMessage:
+        type: string
+      exitCode:
+        type: integer
+      output:
+        items:
+          $ref: '#/definitions/util.CommandOutput'
+        type: array
+      success:
+        type: boolean
+    type: object
+  api.CreateSessionReq:
+    properties:
+      exclude_patterns:
+        items:
+          $ref: '#/definitions/db.FileInfo'
+        type: array
+      include_patterns:
+        items:
+          $ref: '#/definitions/db.FileInfo'
+        type: array
+      mode:
+        enum:
+        - auto
+        - manual
+        - single-html
+        - product-design
+        - all
+        type: string
+      name:
+        type: string
+      project_id:
+        type: integer
+    required:
+    - mode
+    - name
+    - project_id
+    type: object
+  api.ExecuteCodeRequest:
+    properties:
+      code:
+        type: string
+      language:
+        type: string
+    required:
+    - code
+    - language
+    type: object
+  api.ExecuteCommandRequest:
+    properties:
+      command:
+        type: string
+    required:
+    - command
+    type: object
+  api.GenerateDocRequest:
+    properties:
+      api_list:
+        items:
+          $ref: '#/definitions/utils.ApiInterface'
+        type: array
+      swagger_file:
+        type: string
+    type: object
+  api.GenerateDocResponse:
+    properties:
+      result:
+        type: string
+    type: object
+  api.ListInterfacesRequest:
+    properties:
+      swagger_file:
+        type: string
+    type: object
+  api.ModelInfo:
+    properties:
+      capabilities:
+        description: 能力列表
+        items:
+          type: string
+        type: array
+      description:
+        description: 模型描述
+        type: string
+      is_chat_model:
+        description: 是否为聊天模型
+        type: boolean
+      max_context:
+        description: 最大上下文长度
+        type: integer
+      max_tokens:
+        description: 最大token数
+        type: integer
+      name:
+        description: 模型名称
+        type: string
+      temperature:
+        description: 温度参数
+        type: number
+    type: object
+  api.OpenAICompatRequest:
+    properties:
+      content:
+        type: string
+      context_files:
+        description: |-
+          Additional OpenAI parameters can be added as needed
+          ProjectPath  string   `json:"project_path"`
+        items:
+          type: string
+        type: array
+      max_tokens:
+        type: integer
+      model:
+        type: string
+      project_path:
+        type: string
+      session_id:
+        type: integer
+      stream:
+        description: Messages    []ChatMessage `json:"messages"`
+        type: boolean
+      temperature:
+        type: number
+      tool_use:
+        $ref: '#/definitions/assistantmessage.ToolUseReq'
+      type:
+        type: string
+    required:
+    - project_path
+    - session_id
+    - type
+    type: object
+  api.ParseAiContentReq:
+    properties:
+      content:
+        type: string
+    type: object
+  api.ReadFileReq:
+    properties:
+      file_path:
+        type: string
+      project_id:
+        type: integer
+    required:
+    - file_path
+    - project_id
+    type: object
+  api.ReadFileResp:
+    properties:
+      content:
+        type: string
+      file_path:
+        type: string
+    type: object
+  api.SendMessageReq:
+    properties:
+      content:
+        type: string
+      context_files:
+        items:
+          type: string
+        type: array
+      project_path:
+        type: string
+    required:
+    - content
+    - project_path
+    type: object
+  api.SendMessageResp:
+    properties:
+      ai_message:
+        type: string
+      user_message:
+        type: string
+    type: object
+  api.TestPromptRequest:
+    properties:
+      customModeConfigs:
+        items:
+          $ref: '#/definitions/sections.ModeConfig'
+        type: array
+      envContext:
+        $ref: '#/definitions/prompts.EnvironmentContext'
+      globalInstructions:
+        type: string
+      mode:
+        type: string
+      prompt:
+        type: string
+    type: object
+  api.TestPromptResponse:
+    properties:
+      result:
+        type: string
+    type: object
+  api.UpdateContextResp:
+    properties:
+      status:
+        type: string
+    type: object
+  api.UpdateProjectReq:
+    properties:
+      language:
+        type: string
+      name:
+        type: string
+      path:
+        type: string
+    type: object
+  api.UpdateSessionReq:
+    properties:
+      exclude_patterns:
+        items:
+          $ref: '#/definitions/db.FileInfo'
+        type: array
+      include_patterns:
+        items:
+          $ref: '#/definitions/db.FileInfo'
+        type: array
+      mode:
+        type: string
+      name:
+        type: string
+    type: object
+  assistantmessage.ToolUse:
+    properties:
+      name:
+        $ref: '#/definitions/assistantmessage.ToolUseName'
+      params:
+        additionalProperties:
+          type: string
+        type: object
+      partial:
+        type: boolean
+      type:
+        type: string
+    type: object
+  assistantmessage.ToolUseName:
+    enum:
+    - execute_command
+    - read_file
+    - write_to_file
+    - apply_diff
+    - insert_content
+    - search_and_replace
+    - search_files
+    - list_files
+    - list_code_definition_names
+    - browser_action
+    - use_mcp_tool
+    - access_mcp_resource
+    - ask_followup_question
+    - attempt_completion
+    - switch_mode
+    - new_task
+    - fetch_instructions
+    type: string
+    x-enum-varnames:
+    - ExecuteCommand
+    - ReadFile
+    - WriteToFile
+    - ApplyDiff
+    - InsertContent
+    - SearchAndReplace
+    - SearchFiles
+    - ListFiles
+    - ListCodeDefinitionNames
+    - BrowserAction
+    - UseMcpTool
+    - AccessMcpResource
+    - AskFollowupQuestion
+    - AttemptCompletion
+    - SwitchMode
+    - NewTask
+    - FetchInstructions
+  assistantmessage.ToolUseReq:
+    properties:
+      confirmed:
+        type: boolean
+      context_files:
+        items: {}
+        type: array
+      model:
+        type: string
+      project_path:
+        type: string
+      tool_use:
+        $ref: '#/definitions/assistantmessage.ToolUse'
+    type: object
+  base.Response:
+    properties:
+      code:
+        type: integer
+      data: {}
+      msg:
+        type: string
+    type: object
+  db.FileInfo:
+    properties:
+      is_dir:
+        type: boolean
+      path:
+        type: string
+    type: object
+  db.Project:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      language:
+        type: string
+      last_opened_at:
+        type: string
+      name:
+        type: string
+      path:
+        type: string
+    type: object
+  prompts.EnvironmentContext:
+    properties:
+      browserViewportSize:
+        description: e.g., "1280x800"
+        type: string
+      cwd:
+        type: string
+      language:
+        description: e.g., "en", "fr"
+        type: string
+      supportsComputerUse:
+        description: For browser actions etc.
+        type: boolean
+    type: object
+  sections.FileRestriction:
+    properties:
+      description:
+        type: string
+      fileRegex:
+        description: Go regex syntax
+        type: string
+    type: object
+  sections.GroupEntry:
+    properties:
+      name:
+        allOf:
+        - $ref: '#/definitions/toolgroups.ToolGroupName'
+        description: The core group name
+      restriction:
+        allOf:
+        - $ref: '#/definitions/sections.FileRestriction'
+        description: Optional restriction
+    type: object
+  sections.ModeConfig:
+    properties:
+      customInstructions:
+        type: string
+      groups:
+        description: Array of allowed tool groups/restrictions
+        items:
+          $ref: '#/definitions/sections.GroupEntry'
+        type: array
+      name:
+        type: string
+      roleDefinition:
+        type: string
+      slug:
+        $ref: '#/definitions/sections.ModeSlug'
+    type: object
+  sections.ModeSlug:
+    enum:
+    - code
+    type: string
+    x-enum-varnames:
+    - DefaultModeSlug
+  services.ContextInfo:
+    properties:
+      current_file:
+        type: string
+      cursor_position:
+        type: integer
+      files:
+        items:
+          type: string
+        type: array
+      selected_code:
+        type: string
+    type: object
+  services.FileNode:
+    properties:
+      children:
+        items:
+          $ref: '#/definitions/services.FileNode'
+        type: array
+      is_dir:
+        type: boolean
+      lines:
+        type: integer
+      name:
+        type: string
+      path:
+        type: string
+    type: object
+  services.MessageInfo:
+    properties:
+      content:
+        type: string
+      id:
+        type: integer
+      role:
+        type: string
+      timestamp:
+        type: string
+    type: object
+  services.SessionInfo:
+    properties:
+      created_at:
+        type: string
+      exclude_patterns:
+        items:
+          $ref: '#/definitions/db.FileInfo'
+        type: array
+      id:
+        type: integer
+      include_patterns:
+        items:
+          $ref: '#/definitions/db.FileInfo'
+        type: array
+      messages:
+        items:
+          $ref: '#/definitions/services.MessageInfo'
+        type: array
+      mode:
+        type: string
+      name:
+        type: string
+      project_id:
+        type: integer
+      updated_at:
+        type: string
+    type: object
+  toolgroups.ToolGroupName:
+    enum:
+    - read
+    - edit
+    - command
+    - browser
+    - mcp
+    type: string
+    x-enum-comments:
+      GroupMcp: Keep if MCP tools might be re-added
+    x-enum-varnames:
+    - GroupRead
+    - GroupEdit
+    - GroupCommand
+    - GroupBrowser
+    - GroupMcp
+  util.CommandOutput:
+    properties:
+      isError:
+        type: boolean
+      line:
+        type: string
+      timestamp:
+        type: integer
+    type: object
+  utils.ApiInterface:
+    properties:
+      method:
+        type: string
+      path:
+        type: string
+    type: object
+host: 192.168.0.106:14010
+info:
+  contact:
+    email: xxxxxxx@xxx.com
+    name: ctsch
+    url: http://www.example.com/support
+  description: MindWeaver AI
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: 自动化自媒体工具-API
+  version: "1.0"
+paths:
+  /commands/execute:
+    post:
+      consumes:
+      - application/json
+      description: 执行 shell 命令并返回结果
+      parameters:
+      - description: 要执行的命令
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/api.ExecuteCommandRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/base.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/api.CommandResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/base.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/base.Response'
+      summary: 执行 shell 命令
+      tags:
+      - 命令
+  /commands/execute-code:
+    post:
+      consumes:
+      - application/json
+      description: 执行指定编程语言的代码并返回结果
+      parameters:
+      - description: 要执行的代码
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/api.ExecuteCodeRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/base.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/api.CommandResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/base.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/base.Response'
+      summary: 执行指定语言的代码
+      tags:
+      - 命令
+  /files/read:
+    post:
+      consumes:
+      - application/json
+      description: 读取指定项目中的文件内容
+      parameters:
+      - description: 文件请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/api.ReadFileReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/base.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/api.ReadFileResp'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/base.Response'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/base.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/base.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/base.Response'
+      summary: 读取文件内容
+      tags:
+      - file
+  /files/single-html:
+    get:
+      consumes:
+      - text/html
+      description: 读取指定项目中的文件内容
+      parameters:
+      - description: 文件请求参数
+        in: query
+        name: path
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: HTML content
+          schema:
+            type: string
+        "404":
+          description: <h1>404 Not Found</h1>
+          schema:
+            type: string
+      summary: 读取文件内容
+      tags:
+      - file
+  /models:
+    get:
+      consumes:
+      - application/json
+      description: 获取系统中所有可用的LLM模型信息
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/base.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/api.ModelInfo'
+                  type: array
+              type: object
+      summary: 获取模型列表
+      tags:
+      - model
+  /projects:
+    get:
+      consumes:
+      - application/json
+      description: 获取所有项目列表，按最后打开时间降序排列
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/base.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/db.Project'
+                  type: array
+              type: object
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/base.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/base.Response'
+      summary: 获取所有项目
+      tags:
+      - project
+    post:
+      consumes:
+      - application/json
+      description: 创建项目
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/base.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/db.Project'
+              type: object
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/base.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/base.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/base.Response'
+      summary: 创建项目
+      tags:
+      - project
+  /projects/{id}:
+    get:
+      consumes:
+      - application/json
+      description: 根据ID获取单个项目详情，并更新最后打开时间
+      parameters:
+      - description: 项目ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/base.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/db.Project'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/base.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/base.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/base.Response'
+      summary: 获取项目详情
+      tags:
+      - project
+    put:
+      consumes:
+      - application/json
+      description: 更新项目名称、路径或语言
+      parameters:
+      - description: 项目ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: 项目信息（如果没有修改，那么传入原来的值）
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpdateProjectReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/base.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/db.Project'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/base.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/base.Response'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/base.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/base.Response'
+      summary: 更新项目
+      tags:
+      - project
+  /projects/{id}/files:
+    get:
+      consumes:
+      - application/json
+      description: 获取项目的文件树结构，可指定最大深度
+      parameters:
+      - description: 项目ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: 最大深度，默认为3
+        in: query
+        minimum: 1
+        name: maxDepth
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/base.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/services.FileNode'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/base.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/base.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/base.Response'
+      summary: 获取项目文件结构
+      tags:
+      - project
+  /prompts/test:
+    post:
+      consumes:
+      - application/json
+      description: Builds a system prompt using the given parameters
+      parameters:
+      - description: Request data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/api.TestPromptRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/base.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/api.TestPromptResponse'
+              type: object
+      summary: Generate a system prompt using the prompt engine
+      tags:
+      - Prompts
+  /sessions:
+    post:
+      consumes:
+      - application/json
+      description: 为指定项目创建新的代码会话
+      parameters:
+      - description: 会话创建参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/api.CreateSessionReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/base.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/services.SessionInfo'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/base.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/base.Response'
+      summary: 创建新会话
+      tags:
+      - session
+  /sessions/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: 删除指定会话及其所有相关数据
+      parameters:
+      - description: 会话ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/base.Response'
+            - properties:
+                data:
+                  properties:
+                    status:
+                      type: string
+                  type: object
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/base.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/base.Response'
+      summary: 删除会话
+      tags:
+      - session
+    get:
+      consumes:
+      - application/json
+      description: 获取指定会话的详细信息，包括消息历史
+      parameters:
+      - description: 会话ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/base.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/services.SessionInfo'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/base.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/base.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/base.Response'
+      summary: 获取会话详情
+      tags:
+      - session
+    put:
+      consumes:
+      - application/json
+      description: 更新会话的名称、模式或文件模式
+      parameters:
+      - description: 会话ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: 会话更新参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpdateSessionReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/base.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/services.SessionInfo'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/base.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/base.Response'
+      summary: 更新会话信息
+      tags:
+      - session
+  /sessions/{id}/completions:
+    post:
+      consumes:
+      - application/json
+      description: Provides an OpenAI-compatible streaming API endpoint for chat completions
+      parameters:
+      - description: Completion request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/api.OpenAICompatRequest'
+      produces:
+      - text/event-stream
+      responses:
+        "200":
+          description: SSE stream of completion chunks
+          schema:
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/base.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/base.Response'
+      summary: OpenAI-compatible streaming completions
+      tags:
+      - session
+  /sessions/{id}/context:
+    get:
+      consumes:
+      - application/json
+      description: 获取会话的上下文信息
+      parameters:
+      - description: 会话ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/base.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/services.ContextInfo'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/base.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/base.Response'
+      summary: 获取会话上下文
+      tags:
+      - session
+    put:
+      consumes:
+      - application/json
+      description: 更新会话的上下文信息(当前文件、光标位置等)
+      parameters:
+      - description: 会话ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: 上下文信息
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/services.ContextInfo'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/base.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/api.UpdateContextResp'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/base.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/base.Response'
+      summary: 更新会话上下文
+      tags:
+      - session
+  /sessions/{id}/message:
+    post:
+      consumes:
+      - application/json
+      description: 向会话发送消息并同步获取AI响应
+      parameters:
+      - description: 会话ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: 消息内容
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/api.SendMessageReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/base.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/api.SendMessageResp'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/base.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/base.Response'
+      summary: 发送消息并获取AI响应
+      tags:
+      - session
+  /sessions/{id}/messages/{msgId}:
+    delete:
+      consumes:
+      - application/json
+      description: 删除指定消息及其所有相关数据
+      parameters:
+      - description: 会话ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: 消息ID，0表示删除会话下所有消息
+        in: path
+        name: msgId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/base.Response'
+            - properties:
+                data:
+                  properties:
+                    status:
+                      type: string
+                  type: object
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/base.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/base.Response'
+      summary: 删除消息
+      tags:
+      - session
+  /sessions/parse/ai-res:
+    post:
+      consumes:
+      - application/json
+      description: 解析ai响应文本，返回解析完的数据内容
+      parameters:
+      - description: 需要解析的内容
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/api.ParseAiContentReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/base.Response'
+            - properties:
+                data: {}
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/base.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/base.Response'
+      summary: 解析ai响应文本
+      tags:
+      - session
+  /sessions/project/{projectId}:
+    get:
+      consumes:
+      - application/json
+      description: 获取指定项目的所有会话列表，按更新时间降序排列
+      parameters:
+      - description: 项目ID
+        in: path
+        name: projectId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/base.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/services.SessionInfo'
+                  type: array
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/base.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/base.Response'
+      summary: 获取项目所有会话
+      tags:
+      - session
+  /swaggers/doc:
+    post:
+      consumes:
+      - application/json
+      description: Generates Markdown documentation for specified interfaces
+      parameters:
+      - description: Request data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/api.GenerateDocRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/base.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/api.GenerateDocResponse'
+              type: object
+      summary: Generate API documentation from a Swagger document
+      tags:
+      - Swagger
+  /swaggers/list:
+    post:
+      consumes:
+      - application/json
+      description: Returns a list of all interfaces in the Swagger document
+      parameters:
+      - description: Request data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/api.ListInterfacesRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/base.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/utils.ApiInterface'
+                  type: array
+              type: object
+      summary: List all interfaces in a Swagger document
+      tags:
+      - Swagger
+  /tools/handle-llm-response:
+    get:
+      consumes:
+      - application/json
+      description: 解析html文件并判断是否出错
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/base.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/services.ContextInfo'
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/base.Response'
+      summary: 解析html文件并判断是否出错
+      tags:
+      - tools
+  /tools/jsinspector:
+    get:
+      consumes:
+      - application/json
+      description: 解析html文件并判断是否出错
+      parameters:
+      - description: html文件的绝对路径
+        in: query
+        name: path
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/base.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/services.ContextInfo'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/base.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/base.Response'
+      summary: 解析html文件并判断是否出错
+      tags:
+      - tools
+securityDefinitions:
+  ApiKeyAuth:
+    description: Type "Bearer" followed by a space and JWT token.
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

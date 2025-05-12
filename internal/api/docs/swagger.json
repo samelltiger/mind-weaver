@@ -1,0 +1,2191 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "MindWeaver AI",
+        "title": "自动化自媒体工具-API",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "ctsch",
+            "url": "http://www.example.com/support",
+            "email": "xxxxxxx@xxx.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0"
+    },
+    "host": "192.168.0.106:14010",
+    "basePath": "/api",
+    "paths": {
+        "/commands/execute": {
+            "post": {
+                "description": "执行 shell 命令并返回结果",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "命令"
+                ],
+                "summary": "执行 shell 命令",
+                "parameters": [
+                    {
+                        "description": "要执行的命令",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.ExecuteCommandRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/base.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/api.CommandResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/base.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/base.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/commands/execute-code": {
+            "post": {
+                "description": "执行指定编程语言的代码并返回结果",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "命令"
+                ],
+                "summary": "执行指定语言的代码",
+                "parameters": [
+                    {
+                        "description": "要执行的代码",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.ExecuteCodeRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/base.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/api.CommandResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/base.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/base.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/files/read": {
+            "post": {
+                "description": "读取指定项目中的文件内容",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "file"
+                ],
+                "summary": "读取文件内容",
+                "parameters": [
+                    {
+                        "description": "文件请求参数",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.ReadFileReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/base.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/api.ReadFileResp"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/base.Response"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/base.Response"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/base.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/base.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/files/single-html": {
+            "get": {
+                "description": "读取指定项目中的文件内容",
+                "consumes": [
+                    "text/html"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "file"
+                ],
+                "summary": "读取文件内容",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "文件请求参数",
+                        "name": "path",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "HTML content",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "\u003ch1\u003e404 Not Found\u003c/h1\u003e",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/models": {
+            "get": {
+                "description": "获取系统中所有可用的LLM模型信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "model"
+                ],
+                "summary": "获取模型列表",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/base.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/api.ModelInfo"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/projects": {
+            "get": {
+                "description": "获取所有项目列表，按最后打开时间降序排列",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "project"
+                ],
+                "summary": "获取所有项目",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/base.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/db.Project"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/base.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/base.Response"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "创建项目",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "project"
+                ],
+                "summary": "创建项目",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/base.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/db.Project"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/base.Response"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/base.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/base.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/projects/{id}": {
+            "get": {
+                "description": "根据ID获取单个项目详情，并更新最后打开时间",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "project"
+                ],
+                "summary": "获取项目详情",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "项目ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/base.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/db.Project"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/base.Response"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/base.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/base.Response"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "更新项目名称、路径或语言",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "project"
+                ],
+                "summary": "更新项目",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "项目ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "项目信息（如果没有修改，那么传入原来的值）",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpdateProjectReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/base.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/db.Project"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/base.Response"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/base.Response"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/base.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/base.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/projects/{id}/files": {
+            "get": {
+                "description": "获取项目的文件树结构，可指定最大深度",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "project"
+                ],
+                "summary": "获取项目文件结构",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "项目ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "minimum": 1,
+                        "type": "integer",
+                        "description": "最大深度，默认为3",
+                        "name": "maxDepth",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/base.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/services.FileNode"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/base.Response"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/base.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/base.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/prompts/test": {
+            "post": {
+                "description": "Builds a system prompt using the given parameters",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Prompts"
+                ],
+                "summary": "Generate a system prompt using the prompt engine",
+                "parameters": [
+                    {
+                        "description": "Request data",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.TestPromptRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/base.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/api.TestPromptResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/sessions": {
+            "post": {
+                "description": "为指定项目创建新的代码会话",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "session"
+                ],
+                "summary": "创建新会话",
+                "parameters": [
+                    {
+                        "description": "会话创建参数",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.CreateSessionReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/base.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/services.SessionInfo"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/base.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/base.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/sessions/parse/ai-res": {
+            "post": {
+                "description": "解析ai响应文本，返回解析完的数据内容",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "session"
+                ],
+                "summary": "解析ai响应文本",
+                "parameters": [
+                    {
+                        "description": "需要解析的内容",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.ParseAiContentReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/base.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {}
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/base.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/base.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/sessions/project/{projectId}": {
+            "get": {
+                "description": "获取指定项目的所有会话列表，按更新时间降序排列",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "session"
+                ],
+                "summary": "获取项目所有会话",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "项目ID",
+                        "name": "projectId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/base.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/services.SessionInfo"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/base.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/base.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/sessions/{id}": {
+            "get": {
+                "description": "获取指定会话的详细信息，包括消息历史",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "session"
+                ],
+                "summary": "获取会话详情",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "会话ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/base.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/services.SessionInfo"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/base.Response"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/base.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/base.Response"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "更新会话的名称、模式或文件模式",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "session"
+                ],
+                "summary": "更新会话信息",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "会话ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "会话更新参数",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpdateSessionReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/base.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/services.SessionInfo"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/base.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/base.Response"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "删除指定会话及其所有相关数据",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "session"
+                ],
+                "summary": "删除会话",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "会话ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/base.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "status": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/base.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/base.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/sessions/{id}/completions": {
+            "post": {
+                "description": "Provides an OpenAI-compatible streaming API endpoint for chat completions",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "text/event-stream"
+                ],
+                "tags": [
+                    "session"
+                ],
+                "summary": "OpenAI-compatible streaming completions",
+                "parameters": [
+                    {
+                        "description": "Completion request",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.OpenAICompatRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SSE stream of completion chunks",
+                        "schema": {
+                            "type": "object"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/base.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/base.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/sessions/{id}/context": {
+            "get": {
+                "description": "获取会话的上下文信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "session"
+                ],
+                "summary": "获取会话上下文",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "会话ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/base.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/services.ContextInfo"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/base.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/base.Response"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "更新会话的上下文信息(当前文件、光标位置等)",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "session"
+                ],
+                "summary": "更新会话上下文",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "会话ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "上下文信息",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/services.ContextInfo"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/base.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/api.UpdateContextResp"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/base.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/base.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/sessions/{id}/message": {
+            "post": {
+                "description": "向会话发送消息并同步获取AI响应",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "session"
+                ],
+                "summary": "发送消息并获取AI响应",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "会话ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "消息内容",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.SendMessageReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/base.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/api.SendMessageResp"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/base.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/base.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/sessions/{id}/messages/{msgId}": {
+            "delete": {
+                "description": "删除指定消息及其所有相关数据",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "session"
+                ],
+                "summary": "删除消息",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "会话ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "消息ID，0表示删除会话下所有消息",
+                        "name": "msgId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/base.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "status": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/base.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/base.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/swaggers/doc": {
+            "post": {
+                "description": "Generates Markdown documentation for specified interfaces",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Swagger"
+                ],
+                "summary": "Generate API documentation from a Swagger document",
+                "parameters": [
+                    {
+                        "description": "Request data",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.GenerateDocRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/base.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/api.GenerateDocResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/swaggers/list": {
+            "post": {
+                "description": "Returns a list of all interfaces in the Swagger document",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Swagger"
+                ],
+                "summary": "List all interfaces in a Swagger document",
+                "parameters": [
+                    {
+                        "description": "Request data",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.ListInterfacesRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/base.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/utils.ApiInterface"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/tools/handle-llm-response": {
+            "get": {
+                "description": "解析html文件并判断是否出错",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "tools"
+                ],
+                "summary": "解析html文件并判断是否出错",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/base.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/services.ContextInfo"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/base.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/tools/jsinspector": {
+            "get": {
+                "description": "解析html文件并判断是否出错",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "tools"
+                ],
+                "summary": "解析html文件并判断是否出错",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "html文件的绝对路径",
+                        "name": "path",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/base.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/services.ContextInfo"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/base.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/base.Response"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "api.CommandResponse": {
+            "type": "object",
+            "properties": {
+                "errorMessage": {
+                    "type": "string"
+                },
+                "exitCode": {
+                    "type": "integer"
+                },
+                "output": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/util.CommandOutput"
+                    }
+                },
+                "success": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "api.CreateSessionReq": {
+            "type": "object",
+            "required": [
+                "mode",
+                "name",
+                "project_id"
+            ],
+            "properties": {
+                "exclude_patterns": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/db.FileInfo"
+                    }
+                },
+                "include_patterns": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/db.FileInfo"
+                    }
+                },
+                "mode": {
+                    "type": "string",
+                    "enum": [
+                        "auto",
+                        "manual",
+                        "single-html",
+                        "product-design",
+                        "all"
+                    ]
+                },
+                "name": {
+                    "type": "string"
+                },
+                "project_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "api.ExecuteCodeRequest": {
+            "type": "object",
+            "required": [
+                "code",
+                "language"
+            ],
+            "properties": {
+                "code": {
+                    "type": "string"
+                },
+                "language": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.ExecuteCommandRequest": {
+            "type": "object",
+            "required": [
+                "command"
+            ],
+            "properties": {
+                "command": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.GenerateDocRequest": {
+            "type": "object",
+            "properties": {
+                "api_list": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/utils.ApiInterface"
+                    }
+                },
+                "swagger_file": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.GenerateDocResponse": {
+            "type": "object",
+            "properties": {
+                "result": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.ListInterfacesRequest": {
+            "type": "object",
+            "properties": {
+                "swagger_file": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.ModelInfo": {
+            "type": "object",
+            "properties": {
+                "capabilities": {
+                    "description": "能力列表",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "description": {
+                    "description": "模型描述",
+                    "type": "string"
+                },
+                "is_chat_model": {
+                    "description": "是否为聊天模型",
+                    "type": "boolean"
+                },
+                "max_context": {
+                    "description": "最大上下文长度",
+                    "type": "integer"
+                },
+                "max_tokens": {
+                    "description": "最大token数",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "模型名称",
+                    "type": "string"
+                },
+                "temperature": {
+                    "description": "温度参数",
+                    "type": "number"
+                }
+            }
+        },
+        "api.OpenAICompatRequest": {
+            "type": "object",
+            "required": [
+                "project_path",
+                "session_id",
+                "type"
+            ],
+            "properties": {
+                "content": {
+                    "type": "string"
+                },
+                "context_files": {
+                    "description": "Additional OpenAI parameters can be added as needed\nProjectPath  string   `json:\"project_path\"`",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "max_tokens": {
+                    "type": "integer"
+                },
+                "model": {
+                    "type": "string"
+                },
+                "project_path": {
+                    "type": "string"
+                },
+                "session_id": {
+                    "type": "integer"
+                },
+                "stream": {
+                    "description": "Messages    []ChatMessage `json:\"messages\"`",
+                    "type": "boolean"
+                },
+                "temperature": {
+                    "type": "number"
+                },
+                "tool_use": {
+                    "$ref": "#/definitions/assistantmessage.ToolUseReq"
+                },
+                "type": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.ParseAiContentReq": {
+            "type": "object",
+            "properties": {
+                "content": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.ReadFileReq": {
+            "type": "object",
+            "required": [
+                "file_path",
+                "project_id"
+            ],
+            "properties": {
+                "file_path": {
+                    "type": "string"
+                },
+                "project_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "api.ReadFileResp": {
+            "type": "object",
+            "properties": {
+                "content": {
+                    "type": "string"
+                },
+                "file_path": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.SendMessageReq": {
+            "type": "object",
+            "required": [
+                "content",
+                "project_path"
+            ],
+            "properties": {
+                "content": {
+                    "type": "string"
+                },
+                "context_files": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "project_path": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.SendMessageResp": {
+            "type": "object",
+            "properties": {
+                "ai_message": {
+                    "type": "string"
+                },
+                "user_message": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.TestPromptRequest": {
+            "type": "object",
+            "properties": {
+                "customModeConfigs": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/sections.ModeConfig"
+                    }
+                },
+                "envContext": {
+                    "$ref": "#/definitions/prompts.EnvironmentContext"
+                },
+                "globalInstructions": {
+                    "type": "string"
+                },
+                "mode": {
+                    "type": "string"
+                },
+                "prompt": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.TestPromptResponse": {
+            "type": "object",
+            "properties": {
+                "result": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.UpdateContextResp": {
+            "type": "object",
+            "properties": {
+                "status": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.UpdateProjectReq": {
+            "type": "object",
+            "properties": {
+                "language": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "path": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.UpdateSessionReq": {
+            "type": "object",
+            "properties": {
+                "exclude_patterns": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/db.FileInfo"
+                    }
+                },
+                "include_patterns": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/db.FileInfo"
+                    }
+                },
+                "mode": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "assistantmessage.ToolUse": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "$ref": "#/definitions/assistantmessage.ToolUseName"
+                },
+                "params": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "partial": {
+                    "type": "boolean"
+                },
+                "type": {
+                    "type": "string"
+                }
+            }
+        },
+        "assistantmessage.ToolUseName": {
+            "type": "string",
+            "enum": [
+                "execute_command",
+                "read_file",
+                "write_to_file",
+                "apply_diff",
+                "insert_content",
+                "search_and_replace",
+                "search_files",
+                "list_files",
+                "list_code_definition_names",
+                "browser_action",
+                "use_mcp_tool",
+                "access_mcp_resource",
+                "ask_followup_question",
+                "attempt_completion",
+                "switch_mode",
+                "new_task",
+                "fetch_instructions"
+            ],
+            "x-enum-varnames": [
+                "ExecuteCommand",
+                "ReadFile",
+                "WriteToFile",
+                "ApplyDiff",
+                "InsertContent",
+                "SearchAndReplace",
+                "SearchFiles",
+                "ListFiles",
+                "ListCodeDefinitionNames",
+                "BrowserAction",
+                "UseMcpTool",
+                "AccessMcpResource",
+                "AskFollowupQuestion",
+                "AttemptCompletion",
+                "SwitchMode",
+                "NewTask",
+                "FetchInstructions"
+            ]
+        },
+        "assistantmessage.ToolUseReq": {
+            "type": "object",
+            "properties": {
+                "confirmed": {
+                    "type": "boolean"
+                },
+                "context_files": {
+                    "type": "array",
+                    "items": {}
+                },
+                "model": {
+                    "type": "string"
+                },
+                "project_path": {
+                    "type": "string"
+                },
+                "tool_use": {
+                    "$ref": "#/definitions/assistantmessage.ToolUse"
+                }
+            }
+        },
+        "base.Response": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "data": {},
+                "msg": {
+                    "type": "string"
+                }
+            }
+        },
+        "db.FileInfo": {
+            "type": "object",
+            "properties": {
+                "is_dir": {
+                    "type": "boolean"
+                },
+                "path": {
+                    "type": "string"
+                }
+            }
+        },
+        "db.Project": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "language": {
+                    "type": "string"
+                },
+                "last_opened_at": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "path": {
+                    "type": "string"
+                }
+            }
+        },
+        "prompts.EnvironmentContext": {
+            "type": "object",
+            "properties": {
+                "browserViewportSize": {
+                    "description": "e.g., \"1280x800\"",
+                    "type": "string"
+                },
+                "cwd": {
+                    "type": "string"
+                },
+                "language": {
+                    "description": "e.g., \"en\", \"fr\"",
+                    "type": "string"
+                },
+                "supportsComputerUse": {
+                    "description": "For browser actions etc.",
+                    "type": "boolean"
+                }
+            }
+        },
+        "sections.FileRestriction": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "fileRegex": {
+                    "description": "Go regex syntax",
+                    "type": "string"
+                }
+            }
+        },
+        "sections.GroupEntry": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "description": "The core group name",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/toolgroups.ToolGroupName"
+                        }
+                    ]
+                },
+                "restriction": {
+                    "description": "Optional restriction",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/sections.FileRestriction"
+                        }
+                    ]
+                }
+            }
+        },
+        "sections.ModeConfig": {
+            "type": "object",
+            "properties": {
+                "customInstructions": {
+                    "type": "string"
+                },
+                "groups": {
+                    "description": "Array of allowed tool groups/restrictions",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/sections.GroupEntry"
+                    }
+                },
+                "name": {
+                    "type": "string"
+                },
+                "roleDefinition": {
+                    "type": "string"
+                },
+                "slug": {
+                    "$ref": "#/definitions/sections.ModeSlug"
+                }
+            }
+        },
+        "sections.ModeSlug": {
+            "type": "string",
+            "enum": [
+                "code"
+            ],
+            "x-enum-varnames": [
+                "DefaultModeSlug"
+            ]
+        },
+        "services.ContextInfo": {
+            "type": "object",
+            "properties": {
+                "current_file": {
+                    "type": "string"
+                },
+                "cursor_position": {
+                    "type": "integer"
+                },
+                "files": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "selected_code": {
+                    "type": "string"
+                }
+            }
+        },
+        "services.FileNode": {
+            "type": "object",
+            "properties": {
+                "children": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/services.FileNode"
+                    }
+                },
+                "is_dir": {
+                    "type": "boolean"
+                },
+                "lines": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "path": {
+                    "type": "string"
+                }
+            }
+        },
+        "services.MessageInfo": {
+            "type": "object",
+            "properties": {
+                "content": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "role": {
+                    "type": "string"
+                },
+                "timestamp": {
+                    "type": "string"
+                }
+            }
+        },
+        "services.SessionInfo": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "exclude_patterns": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/db.FileInfo"
+                    }
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "include_patterns": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/db.FileInfo"
+                    }
+                },
+                "messages": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/services.MessageInfo"
+                    }
+                },
+                "mode": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "project_id": {
+                    "type": "integer"
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "toolgroups.ToolGroupName": {
+            "type": "string",
+            "enum": [
+                "read",
+                "edit",
+                "command",
+                "browser",
+                "mcp"
+            ],
+            "x-enum-comments": {
+                "GroupMcp": "Keep if MCP tools might be re-added"
+            },
+            "x-enum-varnames": [
+                "GroupRead",
+                "GroupEdit",
+                "GroupCommand",
+                "GroupBrowser",
+                "GroupMcp"
+            ]
+        },
+        "util.CommandOutput": {
+            "type": "object",
+            "properties": {
+                "isError": {
+                    "type": "boolean"
+                },
+                "line": {
+                    "type": "string"
+                },
+                "timestamp": {
+                    "type": "integer"
+                }
+            }
+        },
+        "utils.ApiInterface": {
+            "type": "object",
+            "properties": {
+                "method": {
+                    "type": "string"
+                },
+                "path": {
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "ApiKeyAuth": {
+            "description": "Type \"Bearer\" followed by a space and JWT token.",
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    }
+}

@@ -1,0 +1,106 @@
+/* Utility styles */
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* Patterns section */
+.patterns-title {
+    font-weight: 500;
+    margin-bottom: 12px;
+    color: var(--text-color);
+    font-size: 0.95rem;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Patterns container  */
+#patterns-container {
+    background-color: #f8fafc;
+    border-radius: 6px;
+    padding: 16px;
+    margin: 12px 0 16px 0;
+}
+
+.patterns-group {
+    margin-bottom: 16px;
+}
+
+.patterns-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 8px;
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+/* File pattern container styles */
+.file-pattern-container {
+    background-color: #f8fafc;
+    border-radius: 6px;
+    padding: 16px;
+    margin: 12px 0 16px 0;
+}
+
+.pattern-buttons {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+/* Manual files tree in session modal */
+.manual-files-tree {
+    background-color: #f8fafc;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    margin-top: 10px;
+    height: 260px;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+.manual-file-item-container {
+    margin-bottom: 5px;
+}
+
+.manual-file-item {
+    display: flex;
+    align-items: center;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.manual-file-item:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.manual-file-item.directory {
+    font-weight: 500;
+}
+
+.manual-file-item label {
+    margin: 0 0 0 8px;
+    cursor: pointer;
+}
+
+.manual-directory-children {
+    margin-left: 24px;
+    border-left: 1px dashed var(--border-color);
+    padding-left: 8px;
+}

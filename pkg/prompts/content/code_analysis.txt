@@ -1,0 +1,68 @@
+请作为资深代码分析师，对以下代码进行系统化解析。全程使用中文对话，输出markdown格式，要求：
+### 一、全局分析
+1. 代码文件的主要用途/模块功能
+2. 整体架构设计特点
+3. 关键依赖项说明
+### 二、函数级分析（对每个函数按以下结构输出）
+**1. 函数名称**
+`functionName(params)`
+**2. 核心功能**
+- 用1-2句话说明核心用途
+- 输入输出数据类型说明
+**3. 逻辑流程图**
+请严格参考以下mermaid示例语法编写流程图（该示例主要参考语法）
+说明： J -- 是 --> K 对于这种箭头中间字符（如 是 ），只能是一个中文或者一个或多个英文单词，不能是多个中文词语
+```mermaid
+graph TD
+    A["输入 assistantMessage (string)"] --> B["初始化状态变量"]
+    B --> C{"遍历 assistantMessage 字符串 (char)"}
+    C --> D["accumulator += char"]
+
+    %% Main parsing logic
+    F -- 否 --> I["继续累加参数值"]
+
+    J -- 是 --> K{"accumulator 以 </toolName> 结束?"}
+    K -- 是 --> L["标记 currentToolUse.partial = false"]
+
+    %% Loop control
+    H & I & N & P & V & AA & AD --> C_LoopEnd["继续下一个字符"]
+    C_LoopEnd --> C
+
+    %% Post-loop processing
+    C --> AF{"循环结束"}
+    AF --> AG{"currentToolUse 存在?"}
+    AI & AK --> AL["结束"]
+
+    %% Subgraphs for clarity
+    subgraph 参数值解析
+        E --> F --> G & I
+    end
+
+    subgraph 工具内容解析
+        O --> P & R
+    end
+
+    style 参数值解析 fill:#f9f9f9,stroke:#aaa
+    style 工具内容解析 fill:#f9f9f9,stroke:#aaa
+```
+**4. 关键逻辑说明**
+- 异常处理机制
+- 边界条件处理
+- 算法复杂度（如适用）
+**5. 调用关系**
+- 被调用位置：
+- 依赖的子函数：
+**6. 注意事项**
+- 使用约束
+- 潜在风险点
+- 典型应用场景示例
+
+### 三、特殊说明要求
+1. 对异步操作/副作用进行红色标记
+2. 对敏感操作（如数据修改/网络请求）添加⚠️警告标识
+3. 使用表格对比相似功能函数差异
+
+### 四、附加要求
+1. 对超过50行的函数给出优化建议
+2. 指出可能的BUG或脆弱代码段
+3. 标注可复用的代码片段

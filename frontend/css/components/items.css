@@ -1,0 +1,135 @@
+/* Project, file, and session items */
+.project-item,
+.file-item,
+.session-item {
+    padding: 0.35rem 0.75rem;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-bottom: 0.25rem;
+    transition: all 0.2s;
+}
+
+.project-item:hover,
+.file-item:hover,
+.session-item:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.project-item.active,
+.file-item.active,
+.session-item.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.file-item {
+    margin-left: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.file-item:before {
+    content: "📄";
+    margin-right: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.file-item.directory {
+    font-weight: 500;
+}
+
+.file-item.directory:before {
+    content: "📁";
+}
+
+/* Project and session items with actions */
+.project-item,
+.session-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Project and session items with actions */
+.project-item,
+.session-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.project-item-actions,
+.session-item-actions {
+    display: none;
+    gap: 4px;
+}
+
+.project-item:hover .project-item-actions,
+.session-item:hover .session-item-actions {
+    display: flex;
+}
+
+.project-item-name,
+.session-item-name {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Sessions dropdown */
+.sessions-dropdown {
+    position: relative;
+    width: 100%;
+}
+
+.sessions-dropdown-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background-color: var(--panel-color);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.sessions-dropdown-header:hover {
+    border-color: var(--primary-color);
+}
+
+.sessions-dropdown-content {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    max-height: 250px;
+    overflow-y: auto;
+    background-color: var(--panel-color);
+    border: 1px solid var(--border-color);
+    border-radius: 0 0 4px 4px;
+    z-index: 10;
+    display: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sessions-dropdown-content.active {
+    display: block;
+}
+
+/* File name and lines styling */
+.file-name {
+    font-weight: bold;
+}
+
+.file-lines {
+    color: #666;
+    font-size: 0.9em;
+    font-style: italic;
+}
+
+/* For directories, different styling */
+.directory .file-lines {
+    color: #888;
+}
