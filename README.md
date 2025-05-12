@@ -146,12 +146,6 @@
 - SQLite3
 - OpenAI API 密钥
 
-### 环境变量
-- `CODEPILOT_PORT`: 服务器端口（默认8080）
-- `CODEPILOT_DB_PATH`: SQLite数据库路径
-- `OPENAI_API_KEY`: OpenAI API密钥
-- `OPENAI_MODEL`: OpenAI模型名称（默认gpt-4）
-- `FRONTEND_DIR`: 前端静态文件目录（可选）
 
 ### 构建和运行
 1. 克隆仓库
