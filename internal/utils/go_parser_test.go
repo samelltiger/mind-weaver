@@ -174,7 +174,7 @@ func TestParseFile(t *testing.T) {
 	// 注意：这个测试需要实际文件，可以在测试前创建临时文件
 	t.Run("parse actual file", func(t *testing.T) {
 		parser := NewGoCodeParser()
-		_, err := parser.ParseFile("H:\\code\\codepilot\\internal\\api\\handlers.go") // 需要准备测试文件
+		_, err := parser.ParseFile("../api/swagger_handlers.go") // 需要准备测试文件
 		if err != nil {
 			t.Fatalf("ParseFile failed: %v", err)
 		}
@@ -183,7 +183,7 @@ func TestParseFile(t *testing.T) {
 
 	t.Run("non-existent file", func(t *testing.T) {
 		parser := NewGoCodeParser()
-		_, err := parser.ParseFile("H:\\code\\codepilot\\internal\\api\\handlers111.go")
+		_, err := parser.ParseFile("../api/handlers111.go")
 		if err == nil {
 			t.Error("Expected error for non-existent file, got nil")
 		}
