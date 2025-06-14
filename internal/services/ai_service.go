@@ -407,6 +407,7 @@ func (s *AIService) ChatStream(sysPrompt string, prompt string, historyMsgs []*M
 	client := &http.Client{
 		Timeout: time.Duration(s.cfg.LLM.Timeout) * time.Second,
 	}
+	logger.Infof("s.cfg.LLM.Timeout: %v", s.cfg.LLM.Timeout)
 	resp, err := client.Do(req)
 	if err != nil {
 		return err

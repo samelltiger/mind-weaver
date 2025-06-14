@@ -38,7 +38,7 @@ main {
 }
 
 .right-panel {
-    width: 35%;
+    width: 35%; /* 初始宽度 */
     border-right: none;
     border-left: 1px solid var(--border-color);
     background-color: var(--panel-color);
@@ -46,7 +46,9 @@ main {
     flex-direction: column;
     overflow: hidden;
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.03);
+    transition: width 0.3s ease-in-out; /* 新增：平滑过渡效果 */
 }
+
 
 .center-panel {
     position: relative;
