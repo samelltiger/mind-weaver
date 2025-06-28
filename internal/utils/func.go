@@ -18,6 +18,8 @@ func GetLanguageFromExtension(ext string) string {
 		return "go"
 	case ".js":
 		return "javascript"
+	case ".vue":
+		return "javascript"
 	case ".ts":
 		return "typescript"
 	case ".py":
@@ -106,6 +108,7 @@ func GetAllowedExtensions() map[string]bool {
 	return map[string]bool{
 		".go":    true,
 		".js":    true,
+		".vue":   true,
 		".jsx":   true,
 		".ts":    true,
 		".tsx":   true,

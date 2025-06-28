@@ -118,6 +118,9 @@ func (fs *FileService) buildFileTree(node *FileNode, path string, depth, maxDept
 		}
 
 		if entry.IsDir() {
+			if entry.Name() == "node_modules" {
+				continue
+			}
 			// Recursively process directories
 			childLines, err := fs.buildFileTree(&child, fullPath, depth+1, maxDepth)
 			if err != nil {
